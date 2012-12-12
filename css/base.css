@@ -3,7 +3,7 @@ html, body {
     margin: 0;
     font-family: sans-serif, tahoma, 'lucida grande', verdana, arial;
     text-align: left;
-    font-size: medium;
+    font-size: 0.95em;
 }
 
 body {
@@ -17,6 +17,10 @@ ul {
     margin: 0;
 }
 
+img {
+    border: 1px solid #fff;
+}
+
 .centered { margin-right: auto; margin-left: auto;}
 .left {float: left; margin-left: 10px}
 .right {float: right; margin-right: 10px}
@@ -27,11 +31,14 @@ ul {
 .round-left-bottom-corner { border-bottom-left-radius: 5px 5px; }
 .round-right-bottom-corner { border-bottom-right-radius: 5px 5px; }
 .content { width: 75%; min-width: 800px; overflow: auto; }
+.large-font { font-size: large; }
+.small-font { font-size: small; }
 
-#header { height: 80px; }
+#header { height: 35px; }
 
 #sf-link-container {
     float: right;
+    font-size: medium;
 }
 
 #sf-link-container li {
@@ -60,9 +67,14 @@ ul {
 }
 
 #page {
-    height: 400px;
+    min-height: 475px;
     padding: 5px;
     padding-top: 20px;
+}
+
+#main-text {
+    margin-top: 10px;
+    border-top: 1px solid #0d0c0c;
 }
 
 #footer {
