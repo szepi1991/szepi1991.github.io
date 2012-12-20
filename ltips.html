@@ -16,8 +16,40 @@
         </div>
         
         <div id='page' class='centered content'>
-        <b> Some UsefuCommands: </b>
+        <u>Some useful linux tips</u><br/>
+        
+        <p>
+                <u>Tip #1 : Run a command multiple times</u> <br/><br/>
+                <b>repeat</b> is a useful built-in command in csh for this purpose. This comes extremely handy
+                while doing performance benchmarking of programs, where we want to calculate average runtime over multiple runs.
+                e.g: <br/> <br/>
+<pre><code>repeat 3 ./a.out &lt; inp.txt
+Total Program runtime: 0.012 seconds.
+Total Program runtime: 0.014 seconds.
+Total Program runtime: 0.015 seconds.
+</code></pre> <br/><br/>
+                The repeat command is not built-in bash shell. I have written <a href='codes/repeat'>this script</a> that does
+                something similar to csh repeat.
+        </p>
+        <p>
+                <u>Tip #2 : Resizing all images in a directory</u> <br/><br/>
+                One may need to supress image quality in order to transfer/upload photos on internet.
+                I have written <a href='codes/image-resize'>this script </a> which basically scales all the images
+                in a directory to a smaller size.
+                Note that this script makes use of <code>convert</code> command which comes alongwith 
+                <a href='http://www.imagemagick.org/script/binary-releases.php#unix'>ImageMagick</a> installation. e.g:
+<pre><code>[guest@user]./image-resize
+Usage: ./image-resize input_dir resize_factor(in %)
+[guest@user]./image-resize . 30%
+Resizing image in directory . to ./resized geometry 30%
+Resizing ./DSC00189.JPG ..
+Resizing ./DSC00190.JPG ..
+</code></pre> <br/><br/>
+        </p>
+
+        
         </div>
+        
         <div id='footer'>
             <div class='centered content'> 
                 <span class='left'>Copyright &copy; 2012</span>

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ 2 -ne $# ]
+then
+	echo "Usage: ./image-resize input_dir resize_factor(in %)" 
+	exit 1
+fi
+
+input_dir=$1
+output_dir="${input_dir}/resized"
+geometry=$2
+
+if [ ! -d $input_dir ]
+then
+	echo "Input directory not found"
+	exit 1
+fi
+
+\rm $output_dir &> /dev/null
+mkdir $output_dir &> /dev/null
+
+echo "Resizing image in directory $input_dir to $output_dir geometry $2"
+
+for file in $input_dir/*
+do
+	if [ -f $file ]
+	then
+		echo "Resizing $file .."
+		convert -resize ${geometry}% $file $output_dir/`basename $file`
+	fi
+done
