@@ -4,7 +4,7 @@
     <head>
         <link href="css/base.css" type="text/css" rel="stylesheet"/>
         <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/jquery.validate.js"></script>
+        <script type="text/javascript" src="js/ltips.js"></script>
         <title>Home : linux tips</title>
     </head>
 
@@ -32,7 +32,8 @@ Total Program runtime: 0.015 seconds.
                 something similar to csh repeat.
         </p>
         <p>
-                <u>Tip #2 : Resizing all images in a directory</u> <br/><br/>
+                <u class='tip-header'>Tip #2 : Resizing all images in a directory</u> <br/><br/>
+                <span class='tip-text'>
                 One may need to supress image quality in order to transfer/upload photos on internet.
                 I have written <a href='codes/image-resize'>this script </a> which basically scales all the images
                 in a directory to a smaller size.
@@ -45,8 +46,25 @@ Resizing image in directory . to ./resized geometry 30%
 Resizing ./DSC00189.JPG ..
 Resizing ./DSC00190.JPG ..
 </code></pre> <br/><br/>
+              </span>
         </p>
 
+        <p>
+                <u>Tip #3 : Command line dictionary</u> <br/><br/>
+                I find command line applications faster to use than their gui versions. 
+                The <a href='http://sdcv.sourceforge.net/'>sdcv</a>, console version of 
+                <a href='http://code.google.com/p/stardict-3/'>StarDict</a>
+                program has definetly made looking up word meanings easier for me.<br/><br/>
+                Now I can simply do: 
+                <pre><code>[guest@user] meaningof foo</code></pre>
+                <br/>to fetch meaning of the word 'foo' <br/><br/>
+                <pre><code>[guest@user] pronounce foo</code></pre>
+                <br/>to play an audio saying 'foo'<br/><br/>
+
+                To make these commands available, one can use <a href='codes/meaningof'>this script.</a> 
+                This could be directly put in or sourced from bashrc.
+            
+        </p>
         
         </div>
         

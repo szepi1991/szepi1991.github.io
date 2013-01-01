@@ -1,0 +1,73 @@
+<?php require_once 'bootstrap.php' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <link href="css/base.css" type="text/css" rel="stylesheet"/>
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.js"></script>
+        <title>Projects : Template Matching using SIMD instructions.</title>
+    </head>
+
+    <body>
+        <div id='header' class='centered content'>
+            <ul id='sf-link-container'>
+                <li class='round-left-bottom-corner round-right-bottom-corner'><a href='projects.html'>Back to Projects</a></li>
+            </ul>
+        </div>
+        
+        <div id='page' class='centered content'>
+        <h4><u>Problem Statement</u></h4>
+        Template matching is a technique in digital image processing for finding small parts of an image which match a template image.
+        For my experiments, the image to be searched was taken as 67 Megapixel image (8192 X 8192) and template image was taken to be
+        256 pixels (16 X 16). The goal was to locate an approximate match of the small matrix in the bigger one as fast as possible. <br/>
+
+        <br/>The criteria for a match being found was:
+        <ol>
+        <li>Smaller picture should be set a subset of a larger one with each pixel of smaller picture be within the +/-20% range of the corresponding subset pixel of the larger one: <code> 0.8*Big_Pixel &lt; Small_Pixel &lt; 1.2*Big_Pixel.</code></li>
+        <li>At least 50% of the pixels in the smaller image should match the above criteria.</li>
+        </ol>
+        
+        <h4>Implementation details</h4>
+        The solution was tested on 40 core nehalem machine. For simplicity, the pixels were assumed to be in range of 0-128.<br/>
+        I had used pthreads, and the big and small matrices were shared across threads.<br/>
+        The code for the same can be <a href='codes/matrixSearch.cc'>found here</a>.<br/><br/>
+        The flow was :<br/><br/>
+
+        <pre>
+        Parent Thread           Children-threads
+        -----------------------------------------
+        Read-small-matrix           -
+
+                                Read big matrix in parallel. The input read was stored in big_low
+             -                  and big_high matrices, so as to prevent floating point multiplications when we
+                                perform the search.
+
+            Wait till all children threads are done.
+
+             -                  Perform the search, Make use of 128 bit registers.
+                                one 128 bit register can perform 16 8-bit integer operations at once.
+                                (Makes the search 16x faster.)
+
+            Done
+        </pre><br/><br/>
+        The best result was found with 40 threads (one per core). The matrices were accessed so as to take advantage of spatial
+        locality and minimize cache-misses. Some additional optimizations I had put in were not to continue
+        search if more than 50% pixels don't satisfy the matching criteria (had a significant impact on runtime) and while populating
+        big_high and big_low, use precalculated values for <code>1.2*num </code> and <code>0.8*num</code> (had minimal impact), may be
+        because with -O3 enabled, g++ was already doing something similar.<br/><br/><br/><br/>
+        </div>
+        <div id='footer'>
+            <div class='centered content'> 
+                <span class='left'>Copyright &copy; 2012</span>
+                <span class='right'> 
+                    <ul id='footer-link-container'>
+                        <li><a href="http://stackoverflow.com/users/91593/sud03r">
+                        <img src="http://stackoverflow.com/users/flair/91593.png" width="208" height="58" 
+                            title="Profile of sud03r at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+                        </a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </body>
+</html>
