@@ -33,33 +33,7 @@ Total Program runtime: 0.015 seconds.
         </p>
 
         <p>
-                <u>Tip #2 : Working with multiple coding conventions in vim</u> <br/><br/>
-                If you simultaneously work on multiple projects, each having different coding conventions,
-                particularly differences in number of spaces/tabs used for indentation, it is very likely to mix them up.
-                Vim picks up these settings from a file present in your home directory called <code>.vimrc</code>.<br/><br/>
-                
-                One solution I had used was to create a <code>.vimrc.def</code> and place it in the home directory.
-                <code>.vimrc</code> is now a symbolic link that points to this <code>.vimrc.def</code>. <br/>
-
-                Now, if I need different settings for some project say 'foo', I need to place the corresponding vimrc in
-                <code>$HOME/foo-project-directory/.vimrc </code>. All I need more is this little vimwrapper and alias vim to it.
-                <pre><code>#! /bin/sh
-
-vimrcfile=$PWD/.vimrc
-defvimrc=$HOME/.vimrc.def
-if [ -f $vimrcfile ]
-then
-    ln -sf $vimrcfile ~/.vimrc
-else
-    ln -sf $defvimrc ~/.vimrc
-fi
-vi $@
-</code></pre>
-        </p>
-        
-        
-        <p>
-                <u class='tip-header'>Tip #3 : Resizing all images in a directory</u> <br/><br/>
+                <u class='tip-header'>Tip #2 : Resizing all images in a directory</u> <br/><br/>
                 <span class='tip-text'>
                 One may need to supress image quality in order to transfer/upload photos on internet.
                 I have written <a href='codes/image-resize.txt'>this script </a> which basically scales all the images
@@ -77,7 +51,7 @@ Resizing ./DSC00190.JPG ..
         </p>
 
         <p>
-                <u>Tip #4 : Command line dictionary</u> <br/><br/>
+                <u>Tip #3 : Command line dictionary</u> <br/><br/>
                 I find command line applications faster to use than their gui versions. 
                 The <a href='http://sdcv.sourceforge.net/'>sdcv</a>, console version of 
                 <a href='http://code.google.com/p/stardict-3/'>StarDict</a>
