@@ -1,6 +1,0 @@
-alias meaningof="sdcv -u \"Oxford Advanced Learner's Dictionary\"" # or some other dictionary here.
-
-pronounce()
-{
-  echo $@ | esddsp festival --tts
-}
