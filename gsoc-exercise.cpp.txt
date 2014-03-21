@@ -1,0 +1,207 @@
+
+/*********************************************************
+ * OGDF GSoC Excercise for Treewidth
+ * Neeraj Kumar (11 March 2014)
+ * Problem: To compute the decomposition of SP-Graph
+**********************************************************/
+
+#include <ogdf/basic/Graph.h>
+#include <ogdf/basic/GraphCopy.h>
+#include <ogdf/fileformats/GraphIO.h>
+#include <ogdf/basic/graph_generators.h>
+#include <sstream>
+using namespace ogdf;
+
+enum ConnectionType { cUndef = 0, cSeries, cParallel };
+
+class SPTreeData {
+    edge m_graphEdge;
+    ConnectionType m_cType;
+
+public:
+    SPTreeData(edge gEdge, ConnectionType type) : m_graphEdge(gEdge), m_cType(type) {}
+    edge GraphEdge() { return m_graphEdge; }
+    ConnectionType ConnType() { return m_cType; }
+};
+
+class SPTree : public Graph {
+    node m_root;
+    GraphCopy* m_spGraph; // Copy of Input SP-graph
+    NodeArray<SPTreeData*> m_vInfo; // Tree Node -> {Graph Edge, ConnType}
+    EdgeArray<node> m_graphEdgeToTreeNodeMap; // Graph Edge -> Tree Node
+
+    node addNewGraphEdge(edge e, ConnectionType type);
+    void addNewGraphEdge(edge e, edge e1, edge e2, ConnectionType type);
+    string printDecomposition(node v, int& ruleIdx);
+
+public:
+    
+    SPTree(GraphCopy& spGraph);
+    ~SPTree();
+    void constructDecomposition();
+    SPTreeData* getData(node v) { return m_vInfo[v]; }
+    node getNode(edge graphEdge) { return m_graphEdgeToTreeNodeMap[graphEdge]; }
+    bool isLeaf(node v) { return (v->outdeg() == 0); }
+    node getLeft(node v) {
+        List<edge> outEdges;
+        this->outEdges(v, outEdges);
+        // This graph is a binary tree, so just 2 outgoing edges
+        // Assume the one on front to be left, next one to be right.
+        return outEdges.front()->opposite(v);
+    }
+    node getRight(node v) {
+        List<edge> outEdges;
+        this->outEdges(v, outEdges);
+        return outEdges.back()->opposite(v);
+    }
+    void printDecomposition();
+};
+
+
+int main()
+{
+    for (int i = 0; i < 10; i++) {
+        int numEdges = randomNumber(3, 100);
+        Graph G;
+        randomSeriesParallelDAG(G, numEdges, randomDouble(0, 1));
+        //GraphIO::writeDOT(G, "orig.dot");
+        
+        // Make a copy of original graph.
+        GraphCopy GC(G);
+       
+        // Construct and print the decomposition tree.
+        SPTree spTree(GC);
+        spTree.constructDecomposition();
+        spTree.printDecomposition();
+    }
+}
+
+/////////////////////////////////////////////////////////////////////
+/////   SPTree function implementations    //////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+SPTree::SPTree(GraphCopy& spGraph) : m_spGraph(&spGraph),
+                                     m_vInfo(*this),
+                                     m_graphEdgeToTreeNodeMap(spGraph)
+{ 
+    edge e;
+    forall_edges(e, spGraph) {
+        // All original edges will be leaves
+        // of the SPTree.
+        addNewGraphEdge(e, cUndef);
+    }
+}
+
+SPTree::~SPTree() {
+    node tNode;
+    forall_nodes(tNode, *this) {
+        delete m_vInfo[tNode];
+        m_vInfo[tNode] = 0;
+    }
+}
+
+node SPTree::addNewGraphEdge(edge e, ConnectionType type) {
+    node tNode = this->newNode();
+    SPTreeData* p = new SPTreeData(e, type);
+    m_vInfo[tNode] = p;
+    m_graphEdgeToTreeNodeMap[e] = tNode;
+    return tNode;
+}
+
+
+// Edge e was created in the original graph by combining 'e1' and 'e2'
+// as per connection 'type'
+void SPTree::addNewGraphEdge(edge e, edge e1, edge e2, ConnectionType type) {
+    node tNode = addNewGraphEdge(e, type);
+    newEdge(tNode, getNode(e1));
+    newEdge(tNode, getNode(e2));
+}
+
+string SPTree::printDecomposition(node v, int& ruleIdx)
+{
+    if(isLeaf(v)) {
+        std::ostringstream oss;
+        // While printing, display edge labels from the original graph.
+        edge origEdge = m_spGraph->original(getData(v)->GraphEdge());
+        oss << origEdge;
+        return oss.str();
+    }
+    string leftText = printDecomposition(getLeft(v), ruleIdx);
+    string rightText = printDecomposition(getRight(v), ruleIdx);
+    const char* connText = (getData(v)->ConnType() == cSeries) ? " SER " : " PAR ";
+    
+    cout << "R" << ruleIdx << " := " << connText << leftText << " " <<  rightText << endl;
+    string result = "R" + to_string(ruleIdx++);
+    return result;
+}
+
+void SPTree::printDecomposition() {
+    int ruleIdx = 1;
+    if (isLeaf(m_root)) {
+        cout << "G := " << printDecomposition(m_root, ruleIdx) << endl;
+        return;
+    }
+    string leftText = printDecomposition(getLeft(m_root), ruleIdx);
+    string rightText = printDecomposition(getRight(m_root), ruleIdx);
+    const char* connText = (getData(m_root)->ConnType() == cSeries) ? " SER " : " PAR ";
+    cout << "G := " << connText << leftText << " " <<  rightText << endl;
+    cout << endl;
+}
+
+void SPTree::constructDecomposition() {
+    Graph& G = *m_spGraph;
+    // Try reducing the given graph to K2.
+    // Backtrack the reductions to construct the tree.
+    List<node> nodesOfDegreeTwo;
+    node n;
+    forall_nodes(n, G) {
+        if (n->degree() == 2) {
+            nodesOfDegreeTwo.pushBack(n);
+        }
+    }
+
+    while (G.numberOfEdges() > 1) {
+        
+        // Assuming the Graph has more than 1 edge and no parallel edges
+        // to begin with, therefore, there must be a vertex of degree 2.
+        OGDF_ASSERT(!nodesOfDegreeTwo.empty());
+
+        node v = nodesOfDegreeTwo.popFrontRet();
+        // u---(e1)---v----(e2)---w
+        edge e1 = v->firstAdj()->theEdge();
+        edge e2 = v->lastAdj()->theEdge();
+        node u = e1->opposite(v);
+        node w = e2->opposite(v);
+
+        // Check if u and w were adjacent earlier
+        edge edgePrev = G.searchEdge(u, w);
+
+        // Unsubdivide at node v
+        // u---(e1+e2)----w
+        G.hideEdge(e1);
+        G.hideEdge(e2);
+        edge edgeNew = G.newEdge(u, w);
+        addNewGraphEdge(edgeNew, e1, e2, cSeries);
+
+
+        // if u and w were adjacent earlier, we have two parallel edges now that can
+        // be reduced to one edge by a parallel combination
+        if (edgePrev) {
+            G.hideEdge(edgePrev);
+            G.hideEdge(edgeNew);
+            edge e = G.newEdge(u, w);
+            addNewGraphEdge(e, edgePrev, edgeNew, cParallel);
+            // Now check if this operation has reduced the degree of either u or w to 2
+            // if so, we need to add them to the list.
+            if (u->degree() == 2)
+                nodesOfDegreeTwo.pushBack(u);
+            if (w->degree() == 2)
+                nodesOfDegreeTwo.pushBack(w);
+        }
+    }
+
+    // Eventually, The graph will have a single edge, The corresponding
+    // node will be the root of decomposition tree.
+    m_root = getNode(G.firstEdge());
+}
+
