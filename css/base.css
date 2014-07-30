@@ -43,6 +43,17 @@ img {
 .large-font { font-size: large; }
 .small-font { font-size: small; }
 
+#project_list > li {
+    padding: 10px;
+}
+
+.tech_used {
+    margin-left: 5px;
+    color: gray;
+}
+.tech_used:after{content:"]"}
+.tech_used:before{content:"["}
+
 #header { height: 35px; }
 
 #sf-link-container {
