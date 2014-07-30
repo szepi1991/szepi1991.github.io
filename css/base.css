@@ -44,7 +44,14 @@ img {
 .small-font { font-size: small; }
 
 #project_list > li {
-    padding: 10px;
+    margin: 20px;
+}
+#project_list > li:nth-child(odd) {
+    width: 50%;
+    float: left;
+}
+#project_list > li:nth-child(event) {
+    overflow: hidden;
 }
 
 .tech_used {
