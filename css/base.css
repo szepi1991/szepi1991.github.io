@@ -17,7 +17,7 @@ ul {
     margin: 0;
 }
 
-a {
+a, #project_list a {
     color: #369de1;
 }
 
@@ -43,14 +43,35 @@ img {
 .large-font { font-size: large; }
 .small-font { font-size: small; }
 
-#project_list > li {
+#project_list {
+    width: 90%;
+    margin: auto;
+    /** these shall be changed later ^^ **/
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: sans-serif, tahoma, 'lucida grande', verdana, arial;
+    font-size: 0.9em;
+}
+#project_list > h3 {
+    font-weight: bold;
+    margin-top: 10px;
+}
+#project_list > div {
+    text-align: justify;
+    margin: 0px;
+    padding: 10px;
+}
+
+
+#project_list2 > li {
     margin: 20px;
 }
-#project_list > li:nth-child(odd) {
+#project_list2 > li:nth-child(odd) {
     width: 50%;
     float: left;
 }
-#project_list > li:nth-child(event) {
+#project_list2 > li:nth-child(event) {
     overflow: hidden;
 }
 
