@@ -43,8 +43,12 @@ img {
 .large-font { font-size: large; }
 .small-font { font-size: small; }
 
-#project_list {
-    width: 90%;
+#proj_spacer {
+    height: 30px;
+}
+
+.project_list {
+    width: 50%;
     margin: auto;
     /** these shall be changed later ^^ **/
     
@@ -52,27 +56,17 @@ img {
     margin-bottom: 20px;
     font-family: sans-serif, tahoma, 'lucida grande', verdana, arial;
     font-size: 0.9em;
+    
+     float: left; 
 }
-#project_list > h3 {
+.project_list > h3 {
     font-weight: bold;
     margin-top: 10px;
 }
-#project_list > div {
+.project_list > div {
     text-align: justify;
     margin: 0px;
     padding: 10px;
-}
-
-
-#project_list2 > li {
-    margin: 20px;
-}
-#project_list2 > li:nth-child(odd) {
-    width: 50%;
-    float: left;
-}
-#project_list2 > li:nth-child(event) {
-    overflow: hidden;
 }
 
 .tech_used {
@@ -127,6 +121,7 @@ img {
 }
 
 #footer {
+    margin-top: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;

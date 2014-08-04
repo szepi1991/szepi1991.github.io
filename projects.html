@@ -4,9 +4,11 @@
     <head>
         <link href="css/base.css" type="text/css" rel="stylesheet"/>
         <link href="jquery-ui/jquery-ui.css" rel="stylesheet">
-        
+    
+    <!--
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/jquery.validate.js"></script>
+    -->
         
         <title>David Szepesvari</title>
     </head>
@@ -22,7 +24,9 @@
         <div id='page' class='centered content'>
             I list here in chronological order some of the projects I started. Most of them are in very early stages due to time constraints and the fact that I especially enjoy exploring technologies that are new to me.
             
-            <div id="project_list">
+            <div id="proj_spacer"></div>
+        
+            <div id="project_list1" class="project_list">
                 <h3>A script to extract information from weekly seminar updates (2013)</h3>
                 <div>
                     A script that takes my school's not-so-well-formatted weekly talk & seminar updates, extracts and pushes all information into a google calendar for my (and anyone else's) viewing pleasure. At that point it is rather simple copying the events I am interested in into my personal calendar.
@@ -95,10 +99,10 @@
                     I started learning Pascal and Comenius Logo at this age.
                 </div>
                 
-            </div>
-            
-            
-        </div>
+            </div> <!-- This is of the list! -->
+ 
+        </div> <!-- This is of the page! -->
+        
         <div id='footer'>
             <div class='centered content'> 
                 <span class='left'>Copyright &copy; 2014</span>
@@ -119,7 +123,29 @@
 <script src="jquery-ui/external/jquery/jquery.js"></script>
 <script src="jquery-ui/jquery-ui.js"></script>
 <script>
-$( "#project_list" ).accordion( {collapsible: true, active: false, heightStyle: "content" } );
+// We split the project list into two columns using javascript, the turn them both into accordions //
+var projLists = ["project_list1", "project_list2"];
+var origList = document.getElementById(projLists[0]);
+var children = origList.childNodes;
+var toMove = [];
+for (var chI = 0; chI < children.length; chI += 1) {
+    if (children[chI].nodeName === 'H3' || children[chI].nodeName === 'DIV') {
+        toMove.push(children[chI]);
+    }
+}
+// now we take the second half and put it into a new list
+var newList = document.createElement("div");
+newList.setAttribute("id",projLists[1]);
+newList.setAttribute("class","project_list");
+console.log(toMove.length);
+for (var i = toMove.length/2; i < toMove.length; i += 1) {
+    newList.appendChild(toMove[i]); // this automatically removes it from the other list
+}
+origList.parentNode.insertBefore(newList, origList.nextSibling);
+
+for (var i = 0; i < 2; i += 1)
+    $( "#" + projLists[i] ).accordion( {collapsible: true, active: false, heightStyle: "content" } );
+
 </script>
     
 </html>
