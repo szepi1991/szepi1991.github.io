@@ -43,6 +43,9 @@ img {
 .large-font { font-size: large; }
 .small-font { font-size: small; }
 
+#project_spacer {
+    height: 20px;
+}
 
 .project_list {
     width: 50%;
