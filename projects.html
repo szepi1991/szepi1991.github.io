@@ -30,7 +30,7 @@
 
                 <h3>Medley - Netflix Search</h3>
                 <div>
-                    For "Hack the North" hosted at the University of Waterloo with my friends we started building a website that allows for convenient searching of Netflix movies, as this proved to be difficult in our experience. In particular, you often want to consult imdb or rotten tomatoes on top of basic categorical searches. Our website does exactly that and more. Check it out <a href="http://medleymovies.me/">here</a>.
+                    For "Hack the North" hosted at the University of Waterloo with my friends we started building a website that allows for convenient searching of Netflix movies, as this proved to be difficult in our experience. In particular, you often want to consult imdb or rotten tomatoes on top of basic categorical searches. Our website will do exactly that and more. Check it out <a href="http://medleymovies.me/">here</a>. (One complication is that netflix has no public api any more so we cannot easily update the list of titles they offer. We have ideas, though.)
                     <span class='tech_used'>php</span>
                 </div>
 
@@ -148,7 +148,8 @@ var newList = document.createElement("div");
 newList.setAttribute("id",projLists[1]);
 newList.setAttribute("class","project_list");
 console.log(toMove.length);
-for (var i = toMove.length/2; i < toMove.length; i += 1) {
+for (var i = Math.floor((toMove.length/2)/2) * 2; i < toMove.length; i += 1) {
+    // toMove.length/2 is the number of items (each is a pair), we will move the second half
     newList.appendChild(toMove[i]); // this automatically removes it from the other list
 }
 origList.parentNode.insertBefore(newList, origList.nextSibling);
