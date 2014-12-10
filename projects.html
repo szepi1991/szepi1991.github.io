@@ -27,6 +27,13 @@
             <div id="project_spacer"></div>
         
             <div id="project_list1" class="project_list">
+
+                <h3>Medley - Netflix Search</h3>
+                <div>
+                    For "Hack the North" hosted at the University of Waterloo with my friends we started building a website that allows for convenient searching of Netflix movies, as this proved to be difficult in our experience. In particular, you often want to consult imdb or rotten tomatoes on top of basic categorical searches. Our website does exactly that and more. Check it out <a href="http://medleymovies.me/">here</a>.
+                    <span class='tech_used'>php</span>
+                </div>
+
                 <h3>A script to extract information from weekly seminar updates (2013)</h3>
                 <div>
                     I wrote a google script that takes my school's not-so-well-formatted weekly talk & seminar updates, extracts and pushes all information into a google calendar for my (and anyone else's) viewing pleasure. At that point it is rather simple copying the events that I am interested in into my personal calendar.
@@ -132,6 +139,8 @@ var toMove = [];
 for (var chI = 0; chI < children.length; chI += 1) {
     if (children[chI].nodeName === 'H3' || children[chI].nodeName === 'DIV') {
         toMove.push(children[chI]);
+    } else {
+        console.log("not moving" + children[chI]);
     }
 }
 // now we take the second half and put it into a new list
