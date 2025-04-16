@@ -24,7 +24,7 @@ a, .project_list a {
 }
 
 p {
-    margin: 20px 10px;
+    margin: 20px 0px;
 }
 
 img {
@@ -41,7 +41,7 @@ img {
 .round-left-bottom-corner { border-bottom-left-radius: 5px 5px; }
 .round-right-bottom-corner { border-bottom-right-radius: 5px 5px; }
 /* .content { width: 75%; min-width: 800px; overflow: auto; } */
-.content { width: 75%; max-width: 950px; min-width: 500px; overflow: auto; } */
+.content { width: 75%; max-width: 950px; min-width: 500px; overflow: auto; }
 .large-font { font-size: large; }
 .small-font { font-size: small; }
 
@@ -312,3 +312,51 @@ span.bash-output {
 }
 
 /* end */
+
+.intro-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9; /* Light background for the card */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.intro-image {
+    text-align: center;
+    margin-right: 20px;
+}
+
+
+.intro-image img {
+    width: 150px;
+    height: auto;
+    border-radius: 50%; /* Circular image */
+    border: 2px solid #ccc; /* Border around the image */
+    margin: 10px;
+}
+
+.intro-text {
+    flex: 1; /* Take up remaining space */
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.intro-text h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.intro-text p {
+    margin: 10px;
+}
+
+.additional-content {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-top: 20px;
+}
