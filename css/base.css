@@ -1,6 +1,8 @@
 html, body {
-    height: 100%;
+    height: 100%; /* Ensure the height of the page is 100% */
     margin: 0;
+    display: flex;
+    flex-direction: column;
     font-family: sans-serif, tahoma, 'lucida grande', verdana, arial;
     text-align: left;
     font-size: 0.95em;
@@ -22,7 +24,7 @@ a, .project_list a {
 }
 
 p {
-    margin: 10px;
+    margin: 20px 10px;
 }
 
 img {
@@ -42,6 +44,10 @@ img {
 .content { width: 75%; max-width: 950px; min-width: 500px; overflow: auto; } */
 .large-font { font-size: large; }
 .small-font { font-size: small; }
+
+#wrapper {
+    flex: 1; /* Pushes the footer to the bottom when content is short */
+}
 
 #project_spacer {
     height: 20px;
@@ -121,6 +127,10 @@ img {
 }
 
 #footer {
+    background-color: #f8f8f8; /* Optional: Add a background color */
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #ddd; /* Optional: Add a top border */
     margin-top: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
