@@ -41,7 +41,7 @@ img {
 .round-left-bottom-corner { border-bottom-left-radius: 5px 5px; }
 .round-right-bottom-corner { border-bottom-right-radius: 5px 5px; }
 /* .content { width: 75%; min-width: 800px; overflow: auto; } */
-.content { width: 75%; max-width: 950px; min-width: 500px; overflow: auto; }
+.content { width: 75%; max-width: 950px; min-width: 350px; overflow: auto; }
 .large-font { font-size: large; }
 .small-font { font-size: small; }
 
@@ -312,6 +312,11 @@ span.bash-output {
 }
 
 /* end */
+
+/*------------------------------------------------------------------------------
+ *      Intro Card Styles
+ *------------------------------------------------------------------------------
+*/
 
 /* General styles for the intro card */
 .intro-card {
