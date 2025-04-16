@@ -6,6 +6,103 @@
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/jquery.validate.js"></script>
         <title>David Szepesvari</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+        <style>
+            body {
+                font-family: 'Roboto', sans-serif;
+            }
+            @media (max-width: 768px) {
+                #sf-link-container {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                #page {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                img {
+                    width: 100%;
+                    max-width: 150px;
+                }
+            }
+
+            /* Update the footer styles */
+            #footer {
+                background-color: #333;
+                color: #ccc; /* Makes text more visible */
+                padding: 20px;
+                text-align: center;
+                width: 100%;
+            }
+
+            #footer span {
+                color: #aaa; /* Slightly lighter for contrast */
+            }
+
+            /* Update the styles in the <style> section */
+            #page {
+                display: flex;
+                flex-wrap: wrap; /* Allows wrapping on smaller screens */
+                gap: 20px;
+                padding: 10px 20px; /* Reduce padding to make the box shorter */
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                margin: 20px auto;
+                max-width: 800px;
+                flex: 1; /* Ensures the content takes up available space */
+            }
+
+            #page p {
+                font-size: 18px; /* Increase font size for better readability */
+                line-height: 1.8; /* Adjust line height for better spacing */
+                /* margin: 0; Remove extra margins to reduce height */
+            }
+
+            #profile {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                flex: 1; /* Ensures equal space distribution */
+            }
+
+            #bio {
+                flex: 2; /* Makes the text section larger on wider screens */
+                font-size: 16px;
+                line-height: 1.6;
+            }
+
+            @media (max-width: 768px) {
+                #page {
+                    flex-direction: column; /* Stacks everything vertically */
+                    align-items: center;
+                }
+
+                #profile {
+                    margin-bottom: 20px; /* Adds spacing below the image and name */
+                }
+
+                #bio {
+                    text-align: center; /* Centers the text on narrow screens */
+                }
+            }
+
+            /* Apply a sticky footer layout */
+            html, body {
+                height: 100%;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Add space below the content */
+            #page {
+                margin-bottom: 20px; /* Adds space below the content */
+            }
+        </style>
     </head>
 
     <body>
@@ -16,38 +113,30 @@
             </ul>
         </div>
         
+        <!-- Update the #page section -->
         <div id='page' class='centered content'>
-            <div style='float: left; width:200px; margin-right: 50px; margin-bottom: 30px; text-align:center;'>
+            <div id="profile">
                 <h2 style="font-size:20px">David Szepesvari</h2>
-                <img style='width:200px' src="images/PXL_20230102_184110853.PORTRAIT (1).jpg" />
+                <img style='width:200px; border-radius: 50%;' src="images/PXL_20230102_184110853.PORTRAIT (1).jpg" />
             </div>
-            <div style='overflow: hidden; width: auto; margin-top: 20px;'>
-                <p>I am currently a PhD student at the Computing Science Department of the University of Alberta, under the supervision of <a href='https://webdocs.cs.ualberta.ca/~dale/'>Dale Schuurmans</a>. </p>
-                    
-                <p>Before this, I worked at <a href='http://deepmind.com/'>Google DeepMind</a> as a Research Engineer, working across a number of domains with a focus on reinforcement learning. 
-                I completed my Masters in the Computational Statistics group at the <a href='https://cs.uwaterloo.ca/'>University of Waterloo</a> in 2015, under the supervision of <a href='https://cs.uwaterloo.ca/~shai/'>Shai Ben-David</a>,
-                    also working closely with my <a href='http://www.ualberta.ca/~szepesva/'>father</a>. My thesis, titled "A Statistical Analysis of the Aggregation of Crowdsourced Labels", is accessible <a href='https://uwspace.uwaterloo.ca/handle/10012/9841'>here</a>.</p>
-
-                <p>Lately, outside of AI, I enjoy trying my hand at building physical things and racing my car at local RallyCross events. I also enjoy hiking, biking, and climbing -- and I sometimes even jog.
-                    The Projects tab has a couple programming projects from over 10 years ago. I'll perhaps update them some day, but for now it will be a relic of the past :)</p>
-                
-                <br />
-                <p>Special thanks <a href="http://sud03r.github.io">Neeraj Kumar</a> for sharing the template of his website.</p>
+            <div id="bio">
+                <p>I am currently a PhD student at the Computing Science Department of the University of Alberta with a focus on Reinforcement Learning, under the supervision of <a href='https://webdocs.cs.ualberta.ca/~dale/'>Dale Schuurmans</a>.</p>
             </div>
         </div>
-        <div id='footer'>
+
+        <div style='margin: 0 auto; max-width: 800px; text-align: left; line-height: 1.8;'>
+            <p>Before this, I worked at <a href='http://deepmind.com/'>Google DeepMind</a> as a Research Engineer, working across a number of domains with a focus on reinforcement learning. 
+                I completed my Masters in the Computational Statistics group at the <a href='https://cs.uwaterloo.ca/'>University of Waterloo</a> in 2015, under the supervision of <a href='https://cs.uwaterloo.ca/~shai/'>Shai Ben-David</a>,
+                also working closely with my <a href='http://www.ualberta.ca/~szepesva/'>father</a>. My thesis, titled "A Statistical Analysis of the Aggregation of Crowdsourced Labels", is accessible <a href='https://uwspace.uwaterloo.ca/handle/10012/9841'>here</a>.</p>
+            <p>Outside of AI, I enjoy trying my hand at building physical things and racing my car at local RallyCross events. I also enjoy hiking, biking, and climbing -- and I sometimes even jog.</p>
+        </div>
+
+        <div style="height: 2000px;"></div>
+
+        <div id='footer' style="background-color: #333; color: white; padding: 20px; text-align: center;">
             <div class='centered content'> 
-                <span class='left'>Copyright &copy; 2014</span>
-                <span class='right'> David Szepesvari <a href='https://www.linkedin.com/profile/view?id=208232395'>(LinkedIn)</a>
-                <!--
-                    <ul id='footer-link-container'>
-                        <li><a href="http://stackoverflow.com/users/91593/sud03r">
-                        <img src="http://stackoverflow.com/users/flair/91593.png" width="208" height="58" 
-                            title="Profile of sud03r at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
-                        </a></li>
-                    </ul>
-                -->
-                </span>
+                <span>Last Updated: 2025 | </span> 
+                <a href='https://www.linkedin.com/profile/view?id=208232395' style="color: #007bff; text-decoration: none;">LinkedIn</a>
             </div>
         </div>
     </body>
