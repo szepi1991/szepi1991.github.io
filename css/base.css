@@ -313,36 +313,35 @@ span.bash-output {
 
 /* end */
 
+/* General styles for the intro card */
 .intro-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: #f9f9f9; /* Light background for the card */
-    border: 1px solid #ddd; /* Subtle border */
-    border-radius: 8px; /* Rounded corners */
+    justify-content: space-between; /* Keep content side-by-side on larger screens */
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 20px;
     margin-bottom: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Align text to the left for larger screens */
 }
 
-.intro-image {
-    text-align: center;
-    margin-right: 20px;
-}
-
-
+/* Image styles */
 .intro-image img {
-    width: 150px;
+    width: 150px; /* Set a reasonable default size */
     height: auto;
-    border-radius: 50%; /* Circular image */
-    border: 2px solid #ccc; /* Border around the image */
-    margin: 10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin: 10px; /* Add spacing between the image and text */
+    margin-right: 20px; /* Add spacing to the right of the image */
 }
 
+/* Text styles */
 .intro-text {
-    flex: 1; /* Take up remaining space */
+    flex: 1; /* Allow the text to take up remaining space */
     font-size: 16px;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 
 .intro-text h2 {
@@ -355,8 +354,32 @@ span.bash-output {
     margin: 10px;
 }
 
+/* Additional content styles */
 .additional-content {
     font-size: 16px;
     line-height: 1.8;
     margin-top: 20px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .intro-card {
+        flex-direction: column; /* Stack content vertically on smaller screens */
+        text-align: center; /* Center-align text for smaller screens */
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    .intro-image img {
+        width: 100px; /* Slightly smaller image for smaller screens */
+        margin-right: 0; /* Remove right margin when stacked */
+        margin-bottom: 15px; /* Add spacing below the image */
+    }
+
+    .intro-text {
+        font-size: 14px; /* Adjust font size for readability */
+    }
+
+    .additional-content {
+        font-size: 14px;
+    }
 }
